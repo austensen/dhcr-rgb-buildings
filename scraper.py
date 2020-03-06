@@ -20,6 +20,16 @@ def make_dir(dir_path):
     dir_path.mkdir(parents=True)
 
 
+def scrape_pdfs_raw(pdf_dir, txt_dir, csv_dir):
+    for pdf_file in pdf_dir.glob('*.pdf'):
+        txt_file = txt_dir.joinpath(pdf_file.stem + '.txt')
+        csv_file = csv_dir.joinpath(pdf_file.stem + '.csv')
+
+        subprocess.call(['pdftotext', '-table', '-enc', 'UTF-8', pdf_file, txt_file])
+
+        parse_text_to_csv(txt_file, csv_file)
+
+
 def parse_text_to_csv(text_file, csv_file):
     with open(text_file, 'r') as f:
         all_lines = f.read().splitlines()
@@ -52,16 +62,6 @@ def parse_text_to_csv(text_file, csv_file):
             csv_line = ','.join(split_line)
 
             f.write(csv_line + '\n')
-
-
-def scrape_pdfs_raw(pdf_dir, txt_dir, csv_dir):
-    for pdf_file in pdf_dir.glob('*.pdf'):
-        txt_file = txt_dir.joinpath(pdf_file.stem + '.txt')
-        csv_file = csv_dir.joinpath(pdf_file.stem + '.csv')
-
-        subprocess.call(['pdftotext', '-table', '-enc', 'UTF-8', pdf_file, txt_file])
-
-        parse_text_to_csv(txt_file, csv_file)
 
 
 def clean_csvs(raw_dir, clean_file):
