@@ -12,7 +12,7 @@ PDF_DIR = RAW_DIR / 'pdf'
 TXT_DIR = RAW_DIR / 'txt'
 CSV_DIR = RAW_DIR / 'csv'
 CLEAN_DIR = HERE / 'data-clean'
-CLEAN_FILE = CLEAN_DIR / 'dhcr-rgb-rent-stabilized-buildings-2017.csv'
+CLEAN_FILE = CLEAN_DIR / 'dhcr-rgb-rent-stabilized-buildings-2018.csv'
 
 
 def make_dir(dir_path):
